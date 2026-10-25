@@ -1,0 +1,355 @@
+# Japanese Voices: hand placements where the automatic alignment (re/scripts/voice_port.py) misses a
+# voice or puts it on the wrong US line. Rebuild after editing: python re/scripts/voice_port.py, then
+# build the game.
+#
+#   source = "town <JP chunk lba>" or a region name ("EXE: gift reactions", "tower: familiar talk",
+#            "overlay 5071 (JP 5847)", ...), as listed in re/events/voices_missing.md
+#   jp_op  = address of the Japanese voice op (the `30` before `1D`), from voices_missing.md,
+#            voices.json (jp_op) or `python re/scripts/voice_where.py "<source>"`
+#   us     = the US line the voice starts on: the start of its text ("Oh, you’re awake.") or "0x8001xxxx"
+#   as     = "line" (default: plays when the line starts), "follow" (plays after the line's own voice,
+#            while its box waits), "drop" (never play this voice)
+#   through = n: the voice keeps playing through the next n button waits (the US split its text over
+#            more boxes); a placed voice otherwise stops at its box's button, as in the Japanese game
+
+# --- the naming scene (US 6642): JP has an actor op before every box, the US one for the whole scene
+[[voice]]
+source = "town 7335"
+jp_op = "8001771f"            # やあ、気が付いたかい?君は今から生まれ変わるんだよ。
+us = "Oh, you’re awake."
+through = 1
+
+[[voice]]
+source = "town 7335"
+jp_op = "800177c9"            # さあ、はやいとこ決めてくれ。
+us = "Please hurry up and decide."
+
+[[voice]]
+source = "town 7335"
+jp_op = "80017823"            # どんな名前がいいんだい?
+us = "Have you decided"
+
+[[voice]]
+source = "town 7335"
+jp_op = "800178aa"            # よし!<player>。君の新しい人生のはじまりだ!
+us = "All right, <player>!"
+through = 1
+
+[[voice]]
+source = "town 7335"
+jp_op = "80017968"            # さあ、行ってきな!がんばって!
+us = "On your way!"
+
+# --- lines the alignment could not place
+[[voice]]
+source = "town 6728"
+jp_op = "80017c17"            # 何だと?・・・・・。しょうがない。 (tower lecture, second telling)
+us = "You’ve got to be kidding!"
+
+[[voice]]
+source = "town 5934"
+jp_op = "800229d5"            # おにいちゃん!おにいちゃん! (after the "wake up" echo)
+us = "<player>! Yup!"
+
+[[voice]]
+source = "EXE: Kewne's egg tip"
+jp_op = "800fd477"            # 大丈夫、オイラは知ってるぜ。汚いあばら家だろ! = "No problem. It's a dirty hovel, right?"
+us = "0x800702ee"
+
+[[voice]]
+source = "tower: familiar talk"
+jp_op = "800fdf44"            # さぁ、敵のお出ましだぜ。敵の魔物の方を向いて、○ボタンで攻撃だ!
+us = "Face enemy monsters and attack"
+
+# --- voices with no US line: documented here so voices_missing.md stays empty
+[[voice]]
+source = "tower: familiar talk"
+jp_op = "800fd477"            # 大丈夫、オイラは知ってるぜ。汚いあばら家だろ! - the US moved Kewne's egg tip into the EXE: placed by "EXE: Kewne's egg tip"
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 5295"
+jp_op = "8001dde4"            # (Ghosh) ふん!趣味の悪い噴水だな! - the US gives this spot to other townsfolk
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 5921"
+jp_op = "8001f7de"            # いらっしゃーい。パクパク… - a second copy of the greeting; the US keeps one, voiced
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 6236"
+jp_op = "80017796"            # ようこそ!<player>遊技場へ! (遊びの説明) - the US removed the line (empty page 43)
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 6240"
+jp_op = "80017856"            # ようこそ!<player>遊技場へ! - same, second copy of the arcade
+as = "drop"
+us = ""
+
+# --- review 2026-10-06: voices the alignment put one box off (US re-flowed or merged boxes)
+[[voice]]
+source = "town 5300"
+jp_op = "8001e25b"            # 自分が損をする事はしない娘… (Nico on Selfi's egg) - on into "return."
+us = "0x8001e33d"
+through = 1
+
+[[voice]]
+source = "town 5300"
+jp_op = "8001e29e"            # 確かに男の子の前では… - starts at "She does make a cute face"
+us = "0x8001e3fb"
+through = 1
+
+[[voice]]
+source = "town 5300"
+jp_op = "8001e3c9"            # それにしても、自分が損を… (second telling)
+us = "0x8001e573"
+through = 1
+
+[[voice]]
+source = "town 5300"
+jp_op = "8001e41a"            # 確かに男の子の前では… (second telling)
+us = "0x8001e639"
+through = 1
+
+[[voice]]
+source = "town 5320"
+jp_op = "8001e276"            # まぁ、失礼しちゃうわ。 = "How rude."
+us = "0x8001e53a"
+
+[[voice]]
+source = "town 5320"
+jp_op = "8001e29e"            # あら、たらこくちびる!
+us = "0x8001e552"
+
+[[voice]]
+source = "town 5320"
+jp_op = "8001e2c1"            # 兄様と貴方の関係って何なのかしら? = "the relationship between you"
+us = "0x8001e58d"
+
+[[voice]]
+source = "town 5320"
+jp_op = "8001eba2"            # 高貴で知的で美人で可愛い女性に好意を… - on into "And this woman is attracted to"
+us = "0x8001f2af"
+through = 1
+
+[[voice]]
+source = "town 5320"
+jp_op = "8001ebeb"            # そう、<player>様は何もおしゃらないで… = "No, you don't have to say anything"
+us = "0x8001f353"
+
+[[voice]]
+source = "town 5320"
+jp_op = "8001ec24"            # <player>様は、私を助けてくれた。 = "Mr. <player> rescued me."
+us = "0x8001f3b2"
+
+[[voice]]
+source = "town 5320"
+jp_op = "8001ec4c"            # ・・・と言う事は、<player>さまも私を・・・スキ!? = "Does it mean"
+us = "0x8001f3d5"
+
+[[voice]]
+source = "town 5934"
+jp_op = "80021d07"            # でも、また新たな気分ですわ… (Selfi before the top floor) - on into "my heart is trembling"
+us = "0x800245df"
+through = 1
+
+[[voice]]
+source = "town 5934"
+jp_op = "80021d5a"            # <player>さま!! = "Mr. <player>!"
+us = "0x8002469a"
+
+[[voice]]
+source = "town 5921"
+jp_op = "8001c791"            # 顔? - the US changed the choice; no "Face?" line
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 5921"
+jp_op = "8001c7a3"            # あぁー!私が、しおらしいんは… = "Because I'm usually not that modest"
+us = "0x8001d089"
+
+[[voice]]
+source = "town 5921"
+jp_op = "8001de10"            # ぷっはー…<player>をおちょくんのが、私の生き甲斐 - through "'Cuz I enjoy teasing you"
+us = "0x8001f40f"
+through = 2
+
+[[voice]]
+source = "town 5921"
+jp_op = "8001dea0"            # <player>!めっちゃ好きやわぁ。 - the US has this box once (the other copy, same clip, plays)
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 5921"
+jp_op = "8001ec92"            # いらっしゃーい。今日は、むっちゃ珍しい物が… (music box) - on into "We got something re-ally rare"
+us = "0x80020b2e"
+through = 1
+
+[[voice]]
+source = "town 5921"
+jp_op = "8001ecdc"            # オルゴールって言う機械なんやけど。 = "It's a mechanism called"
+us = "0x80020b7b"
+
+[[voice]]
+source = "town 6006"
+jp_op = "800197b7"            # まるで、本の中から真っ白なユニコーンが… (Mia) = "I just can't put them down!"
+us = "0x80019c01"
+
+[[voice]]
+source = "town 6006"
+jp_op = "80019802"            # そして・・・ぶつぶつ… = "And then... mumble", through the six mumble boxes
+us = "0x80019c69"
+through = 6
+
+[[voice]]
+source = "town 6006"
+jp_op = "80019b99"            # 私が、ユウキ・カツの小説が好きな事は… = "As I told you before"
+us = "0x8001a32b"
+
+[[voice]]
+source = "town 6006"
+jp_op = "80019be2"            # 彼の文章って、とってもあったかいものを… = "I feel something very human"
+us = "0x8001a3a2"
+
+[[voice]]
+source = "town 6006"
+jp_op = "80019c27"            # まるで、幼い頃、母親に抱かれている感じ = "It reminds me of being hugged"
+us = "0x8001a3fa"
+
+[[voice]]
+source = "town 6006"
+jp_op = "80019c64"            # そして・・・ぶつぶつ… = "And then... mumble", through the six mumble boxes
+us = "0x8001a476"
+through = 6
+
+[[voice]]
+source = "town 6006"
+jp_op = "8001a298"            # 鞄を隠すのもいいですねぇ。 = "Or maybe hide his shoes."
+us = "0x8001af55"
+
+[[voice]]
+source = "town 6006"
+jp_op = "8001a2bf"            # それよりも寿司五十人前の出前を… = "Or even better... sushi"
+us = "0x8001af87"
+through = 1
+
+[[voice]]
+source = "town 6082"
+jp_op = "80017c84"            # あら、<player>くん。この街にも、カジノが… (Vivian at the casino) = "Oh, <player>."
+us = "0x8001808a"
+
+[[voice]]
+source = "town 6082"
+jp_op = "80017cc2"            # ハルカの街でも、はまったケド… = "I couldn't quit at the casino"
+us = "0x800180e2"
+through = 1
+
+[[voice]]
+source = "town 6240"
+jp_op = "80017a32"            # お兄ちゃん。遊技場って面白いね。 (second arcade) = "this entertainment center is really fun"
+us = "0x80017ba2"
+
+[[voice]]
+source = "town 6244"
+jp_op = "8001af37"            # ありがとうございましたーっ!! (manzai) = "Thank you very much, we love you!", not the choice
+us = "0x8001c0b0"
+
+[[voice]]
+source = "town 6244"
+jp_op = "8001dd4b"            # うーん。文化の香りがするぜ。これで… (Nico at the theater) - on into "I truly hope"
+us = "0x80020ba7"
+through = 1
+
+[[voice]]
+source = "town 6244"
+jp_op = "8001dda5"            # <player>って、けっこう文化的なヤツだぜ。 = "Man, <player> really is a cultural kind of guy."
+us = "0x80020c96"
+
+[[voice]]
+source = "town 6409"
+jp_op = "8001791e"            # お兄ちゃん。ボーリング場って面白いね。 = "this bowling center is really fun"
+us = "0x80017a5e"
+
+[[voice]]
+source = "town 6485"
+jp_op = "8001b5e0"            # プールで泳げるなんて夢みたい… (Cherrl at the pool) = "It's like a dream come true"
+us = "0x8001c522"
+through = 1
+
+[[voice]]
+source = "town 6485"
+jp_op = "8001b631"            # ねぇ、見て見て!この水着似合うかな?… = "Look, look at me!"
+us = "0x8001c5d4"
+through = 2
+
+[[voice]]
+source = "town 6689"
+jp_op = "8001997e"            # フフッ。ホント元気いっぱいだね (Cherrl, hospital) = "Giggle, you really can't stand still"
+us = "0x80019c9d"
+through = 1
+
+[[voice]]
+source = "town 6689"
+jp_op = "8001c305"            # あっ、<player>くん!お見舞いに来てくれたの?… - a second copy with no US box (the first plays)
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 6689"
+jp_op = "8001c34a"            # 私、頑張るから・・・、また来てね。 - same second copy
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 7064"
+jp_op = "8001943e"            # うそ! - the US answers both choices with "Right!?"
+as = "drop"
+us = ""
+
+[[voice]]
+source = "town 7064"
+jp_op = "8001945c"            # そうだろう! = "Right!?"
+us = "0x800197fe"
+
+[[voice]]
+source = "town 7064"
+jp_op = "80019476"            # でもね、優雅に振る舞うには… - "People here have trouble", which both answers reach
+us = "0x800198c2"             # (the US "Of course" jumps there; "Doesn't matter" gets "Right!? But at the same time...")
+through = 1
+
+[[voice]]
+source = "town 7064"
+jp_op = "80019501"            # だからね。たまに募金活動をしてるんだ… = "That's why I sometimes"
+us = "0x8001998e"
+through = 2
+
+[[voice]]
+source = "town 7064"
+jp_op = "80019efc"            # 私さ。オヤジに育てられただろ… = "You know, I was brought up by my father"
+us = "0x8001aa14"
+through = 1
+
+[[voice]]
+source = "EXE: gift reactions"
+jp_op = "8006f0bf"            # なよー! (Weedy) = "is not!", not the narration line
+us = "0x8006c995"
+
+[[voice]]
+source = "tower: Beldo"
+jp_op = "801743c9"            # 私の実体は最上階にいる… = "My actual body is on the top floor"
+us = "0x8017453d"
+through = 1
+
+[[voice]]
+source = "tower: Beldo"
+jp_op = "8017441d"            # その時、全てを教えてやる。 - not in the US text
+as = "drop"
+us = ""

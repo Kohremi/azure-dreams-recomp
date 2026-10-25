@@ -84,3 +84,26 @@ starvation_dump.jsonl
 
 # Local release-gate receipts (regenerate per run; never ship)
 /_gate/
+
+# ---------------------------------------------------------------------------
+# Azure Dreams mods: everything below is extracted or generated from the
+# player's own discs by re/scripts/prepare.py and the RE tools. It contains
+# game code, data or text and must never be committed.
+/extracted/
+/extracted_jp/
+/mods_src/azure_journal_data.h
+/mods_src/azure_voice_data.h
+/re/events/*
+!/re/events/journal.toml
+!/re/events/voice_overrides.toml
+/re/data/
+/re/modules/
+/re/ghidra/*
+!/re/ghidra/scripts/
+/re/shots/
+/re/sprites/
+/re/timelines/
+/re/tools/
+/re/*.bin
+/re/*.jsonl
+/.venv/

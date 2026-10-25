@@ -45,6 +45,31 @@ set(PSX_SETUP_WIZARD ON CACHE BOOL
 set(PSXRECOMP_BIOS_STEMS "SCPH1001" CACHE STRING
     "Recompiled BIOS stems to link; retail-only kit ships no OpenBIOS payload")
 
+# --- Framework patches for the azure.* mods ---------------------------------
+# patches/psxrecomp/*.patch add the small mod API calls the plugins need (e.g.
+# psx_mod_disc_sector_count() for Japanese Voices). Applied to the psxrecomp
+# checkout here, once: a patch that already reverses cleanly is left alone.
+find_package(Git QUIET)
+file(GLOB AZURE_FRAMEWORK_PATCHES "${CMAKE_CURRENT_SOURCE_DIR}/patches/psxrecomp/*.patch")
+list(SORT AZURE_FRAMEWORK_PATCHES)
+foreach(_AZURE_PATCH IN LISTS AZURE_FRAMEWORK_PATCHES)
+    if(NOT GIT_FOUND)
+        message(FATAL_ERROR "git is needed to apply ${_AZURE_PATCH} to ${PSXRECOMP_ROOT}")
+    endif()
+    execute_process(COMMAND "${GIT_EXECUTABLE}" apply --reverse --check "${_AZURE_PATCH}"
+        WORKING_DIRECTORY "${PSXRECOMP_ROOT}" RESULT_VARIABLE _AZURE_APPLIED
+        OUTPUT_QUIET ERROR_QUIET)
+    if(NOT _AZURE_APPLIED EQUAL 0)
+        execute_process(COMMAND "${GIT_EXECUTABLE}" apply "${_AZURE_PATCH}"
+            WORKING_DIRECTORY "${PSXRECOMP_ROOT}" RESULT_VARIABLE _AZURE_RESULT)
+        if(NOT _AZURE_RESULT EQUAL 0)
+            message(FATAL_ERROR "Could not apply ${_AZURE_PATCH} to ${PSXRECOMP_ROOT}. "
+                "Reset the submodule (git submodule update --init --force) and configure again.")
+        endif()
+        message(STATUS "Applied framework patch ${_AZURE_PATCH}")
+    endif()
+endforeach()
+
 include("${PSXRECOMP_ROOT}/runtime/runtime.cmake")
 
 # This project's own mod catalog. The FRAMEWORK stages it -- together with its
@@ -70,6 +95,20 @@ psxrecomp_add_game_runtime(psx-runtime
     GEN_FULL_GLOB "generated/SLUS_006.14_full_*.c"
     CODEGEN_SETUP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/codegen_setup.c"
 )
+
+# Game-owned mod plugins (trusted, statically linked; selected by the
+# azure.* packages under mods/preloaded).
+target_sources(psx-runtime PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/mods_src/azure_gameplay.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/mods_src/azure_journal.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/mods_src/azure_voice.c")
+# The framework stages mods/bundled as a POST_BUILD step of the exe, so a
+# manifest-only edit would never reach the build dir. Make the plugin object
+# depend on every game-owned manifest: editing one relinks and re-stages.
+file(GLOB_RECURSE AZURE_MOD_MANIFESTS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/mods/preloaded/packages/*/manifest.toml")
+set_property(SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/mods_src/azure_gameplay.c"
+    APPEND PROPERTY OBJECT_DEPENDS ${AZURE_MOD_MANIFESTS})
 
 # Stage runtime configs next to the exe for direct build/ launches. Only copy
 # files that exist — never fail POST_BUILD when game_options.toml is absent.

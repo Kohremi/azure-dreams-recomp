@@ -1,0 +1,650 @@
+# Story Journal data (in game: talk to Weedy in Koh's house, third answer).
+# Per girl: `chains` = her event chains ("location:actor-entry", see re/events/stories.md),
+# [[girl.event]] = her story beats in order (`at` = chain:stage, `title` <= 26 characters),
+# [[girl.ending]] = resolved states. An ending puts every chain at its end unless `chains` says
+# otherwise ({"chain" = stage | "end"}); `set`/`clear` = extra flags; `detect` = flags that are all
+# set when the game is in this ending (used to show "Complete" in the journal); `face` = her default
+# portrait face (otherwise taken from the last scene she has passed, e.g. Selfi 4 = in love,
+# Cherrl 7 = nurse).
+# `exclude` = flags this girl's story must never touch (e.g. branch choices handled by endings).
+# Nico, Selfi and Cherrl are hand-written; Mia, Fur, Vivian and Patty are drafted - retitle freely.
+# Rebuild with: python re/scripts/make_journal.py, then rebuild the game.
+
+[[girl]]
+name = "Nico"
+resolved_flag = 5230
+chains = ["4444:8001b3a0", "4444:8001b3f4", "6317:80018b00"]
+exclude = []
+
+[[girl.event]]
+at = "6317:80018b00:0"
+title = "Meet Nico at home"
+where = "Nico's house"
+
+[[girl.event]]
+at = "4444:8001b3a0:1"
+title = "Fountain drive starts"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b3a0:2"
+title = "Donate to the fountain"
+where = "Town square"
+
+[[girl.event]]
+at = "6317:80018b00:1"
+title = "Nico counts donations"
+where = "Nico's house"
+
+[[girl.event]]
+at = "6317:80018b00:2"
+title = "Donations, part two"
+where = "Nico's house"
+
+[[girl.event]]
+at = "4444:8001b3f4:0"
+title = "The fountain is finished"
+where = "Town square"
+
+[[girl.event]]
+at = "6317:80018b00:3"
+title = "Nico after the fountain"
+where = "Nico's house"
+
+[[girl.event]]
+at = "4444:8001b3f4:1"
+title = "Square after the fountain"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b3f4:2"
+title = "Selfi gives you her egg"
+where = "Town square"
+
+[[girl.event]]
+at = "6317:80018b00:4"
+title = "Nico asks about Selfi"
+where = "Nico's house"
+
+[[girl.event]]
+at = "6317:80018b00:5"
+title = "Nico and Ghosh's plans"
+where = "Nico's house"
+
+[[girl.event]]
+at = "4444:8001b3f4:3"
+title = "Ghosh and Nico, culture"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b3f4:4"
+title = "Chero the cellist"
+where = "Town square"
+
+[[girl.event]]
+at = "6317:80018b00:6"
+title = "Nico: glad to see you"
+where = "Nico's house"
+
+[[girl.event]]
+at = "6317:80018b00:7"
+title = "Nico warms up"
+where = "Nico's house"
+
+[[girl.event]]
+at = "6317:80018b00:8"
+title = "Nico's feelings grow"
+where = "Nico's house"
+
+[[girl.event]]
+at = "6317:80018b00:9"
+title = "Nico: pleasure to see you"
+where = "Nico's house"
+
+[[girl.event]]
+at = "6317:80018b00:10"
+title = "Nico tries polite speech"
+where = "Nico's house"
+
+[[girl.event]]
+at = "6317:80018b00:11"
+title = "Nico feels terrific"
+where = "Nico's house"
+
+[[girl.ending]]
+title = "Complete"
+detect = [2445]
+
+[[girl]]
+name = "Selfi"
+resolved_flag = 5234
+chains = ["4444:8001b7e4"]
+exclude = []
+
+[[girl.event]]
+at = "4444:8001b7e4:1"
+title = "Selfi's tower training"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:3"
+title = "Rescue Selfi in the tower"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:4"
+title = "Selfi gives you her egg"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:5"
+title = "Selfi asks about Ghosh"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:6"
+title = "Rumor: frilly pink panties"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:7"
+title = "Rumor: a frog's brain"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:8"
+title = "Rumor: really 30 years old"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:9"
+title = "Rumor: scales on your back"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:10"
+title = "Selfi: you're a mystery"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:11"
+title = "Selfi wants to know you"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:12"
+title = "Why did I rescue you?"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:13"
+title = "Selfi's confession"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b7e4:15"
+title = "You came to see me, right?"
+where = "Town square"
+
+[[girl.ending]]
+title = "Complete"
+detect = [3426]
+
+[[girl]]
+name = "Cherrl"
+resolved_flag = 5240
+chains = ["6287:80019008", "4444:8001b6b0", "5934:8001910c"]
+exclude = [4605, 4051, 4071, 4072, 4056]
+
+[[girl.event]]
+at = "6287:80019008:0"
+title = "Meet Cherrl at home"
+where = "Cherrl's house"
+
+[[girl.event]]
+at = "4444:8001b6b0:1"
+title = "Cherrl in the square"
+where = "Town square"
+
+[[girl.event]]
+at = "6287:80019008:1"
+title = "Cherrl wants a friend"
+where = "Cherrl's house"
+
+[[girl.event]]
+at = "6287:80019008:2"
+title = "Cherrl envies your energy"
+where = "Cherrl's house"
+
+[[girl.event]]
+at = "6287:80019008:3"
+title = "Cherrl gets tired"
+where = "Cherrl's house"
+
+[[girl.event]]
+at = "6287:80019008:4"
+title = "Walk outside, hand in hand"
+where = "Cherrl's house"
+
+[[girl.event]]
+at = "6287:80019008:5"
+title = "Cherrl faints"
+where = "Cherrl's house"
+
+[[girl.event]]
+at = "5934:8001910c:0"
+title = "Hush shows his hospital"
+where = "Hospital"
+
+[[girl.event]]
+at = "5934:8001910c:1"
+title = "Ask Hush about Cherrl"
+where = "Hospital"
+
+[[girl.event]]
+at = "5934:8001910c:2"
+title = "Hush and Cherrl's illness"
+where = "Hospital"
+
+[[girl.event]]
+at = "5934:8001910c:3"
+title = "Hospital visit"
+where = "Hospital"
+
+[[girl.event]]
+at = "5934:8001910c:5"
+title = "Cherrl is admitted"
+where = "Hospital"
+
+[[girl.event]]
+at = "6287:80019008:6"
+title = "Nadia: she's in hospital"
+where = "Cherrl's house"
+
+[[girl.event]]
+at = "5934:8001910c:6"
+title = "Visit Cherrl in hospital"
+where = "Hospital"
+
+[[girl.event]]
+at = "5934:8001910c:7"
+title = "Her illness can be cured"
+where = "Hospital"
+
+[[girl.event]]
+at = "5934:8001910c:8"
+title = "Cherrl: I'll do my best"
+where = "Hospital"
+
+[[girl.event]]
+at = "5934:8001910c:9"
+title = "Cherrl recovers"
+where = "Hospital"
+
+[[girl.event]]
+at = "6287:80019008:7"
+title = "Cherrl is cured!"
+where = "Cherrl's house"
+
+[[girl.ending]]
+title = "Complete: nurse"
+chains = { "6287:80019008" = 8, "5934:8001910c" = "end", "4444:8001b6b0" = "end" }
+set = [4605, 4071, 4072, 4056]
+clear = [4051]
+detect = [4605, 4057]
+face = 7
+
+[[girl.ending]]
+title = "Complete: doll shop"
+chains = { "6287:80019008" = "end", "5934:8001910c" = 10, "4444:8001b6b0" = "end" }
+set = [4051]
+clear = [4605, 4071, 4072, 4056]
+detect = [2007]
+face = 0
+
+[[girl]]
+name = "Mia"
+resolved_flag = 5236
+chains = ["4444:8001b448", "5236:80018d04"]
+exclude = []
+
+[[girl.event]]
+at = "4444:8001b448:0"
+title = "Mia scene 1"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b448:1"
+title = "Mia scene 2"
+where = "Town square"
+
+[[girl.event]]
+at = "4444:8001b448:2"
+title = "Oh, Hello"
+where = "Town square"
+
+[[girl.event]]
+at = "5236:80018d04:0"
+title = "I’m sorry"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:1"
+title = "We meet a lot, don’t we"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:2"
+title = "Mia scene 6"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:3"
+title = "Mia scene 7"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:4"
+title = "Mia scene 8"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:5"
+title = "Ahh"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:6"
+title = "Mia scene 10"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:7"
+title = "Um, ahh"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:8"
+title = "You look like a prince on"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:9"
+title = "Oh right! Koh"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:10"
+title = "Oh, hi, how are you"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:11"
+title = "Mia scene 15"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:12"
+title = "Hi! How are ya"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:13"
+title = "Mia scene 17"
+where = "Library"
+
+[[girl.event]]
+at = "5236:80018d04:15"
+title = "Mia scene 18"
+where = "Library"
+
+[[girl.ending]]
+title = "Complete"
+
+[[girl]]
+name = "Fur"
+resolved_flag = 5232
+chains = ["5091:8001abb0", "5091:8001ac04"]
+exclude = []
+
+[[girl.event]]
+at = "5091:8001abb0:0"
+title = "Oh no. I can hear voice..."
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:1"
+title = "Fur scene 2"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:2"
+title = "Fur scene 3"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:3"
+title = "Fur scene 4"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:4"
+title = "Fur scene 5"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:5"
+title = "Fur scene 6"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:6"
+title = "Fur scene 7"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:7"
+title = "Fur scene 8"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:8"
+title = "Fur scene 9"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:9"
+title = "Fur scene 10"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:10"
+title = "Fur scene 11"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:11"
+title = "Fur scene 12"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:12"
+title = "What is it? Do you need to"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:13"
+title = "Fur scene 14"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:14"
+title = "Fur scene 15"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:15"
+title = "Oh, it’s you Koh"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:16"
+title = "Fur scene 17"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:17"
+title = "Welcome"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:18"
+title = "Fur scene 19"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:19"
+title = "Fur scene 20"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:20"
+title = "Fur scene 21"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:21"
+title = "Fur scene 22"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001abb0:22"
+title = "Fur scene 23"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001ac04:0"
+title = "Fur scene 24"
+where = "Fur's house"
+
+[[girl.event]]
+at = "5091:8001ac04:1"
+title = "Fur scene 25"
+where = "Fur's house"
+
+[[girl.ending]]
+title = "Complete"
+
+[[girl]]
+name = "Vivian"
+resolved_flag = 5238
+chains = ["5442:80018ffc"]
+exclude = []
+
+[[girl.event]]
+at = "5442:80018ffc:1"
+title = "Oh, Koh"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:2"
+title = "Vivian scene 2"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:3"
+title = "Vivian scene 3"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:4"
+title = "Vivian scene 4"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:5"
+title = "Vivian scene 5"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:6"
+title = "Vivian scene 6"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:7"
+title = "Oh, Koh, you came"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:8"
+title = "Vivian scene 8"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:9"
+title = "Oh, Koh, I’m so happy that"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:10"
+title = "Vivian scene 10"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:11"
+title = "Sorry, I’ve already made"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:12"
+title = "Vivian scene 12"
+where = "Theater"
+
+[[girl.event]]
+at = "5442:80018ffc:13"
+title = "Vivian scene 13"
+where = "Theater"
+
+[[girl.ending]]
+title = "Complete"
+
+[[girl]]
+name = "Patty"
+resolved_flag = 5242
+chains = ["5801:80019830"]
+exclude = []
+
+[[girl.event]]
+at = "5801:80019830:0"
+title = "Patty scene 1"
+where = "Inn"
+
+[[girl.event]]
+at = "5801:80019830:1"
+title = "Patty scene 2"
+where = "Inn"
+
+[[girl.event]]
+at = "5801:80019830:2"
+title = "Patty scene 3"
+where = "Inn"
+
+[[girl.event]]
+at = "5801:80019830:3"
+title = "Patty scene 4"
+where = "Inn"
+
+[[girl.event]]
+at = "5801:80019830:4"
+title = "Patty scene 5"
+where = "Inn"
+
+[[girl.event]]
+at = "5801:80019830:5"
+title = "Patty scene 6"
+where = "Inn"
+
+[[girl.ending]]
+title = "Complete"
+

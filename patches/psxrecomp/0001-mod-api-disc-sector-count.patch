@@ -1,0 +1,68 @@
+diff --git a/runtime/include/cdrom.h b/runtime/include/cdrom.h
+index 9a864925..762a842d 100644
+--- a/runtime/include/cdrom.h
++++ b/runtime/include/cdrom.h
+@@ -31,6 +31,8 @@ int cdrom_replace_disc(const char* cue_path, const char scex[4]);
+  * drive and render nothing -- a black screen with no explanation. Callers that
+  * passed a real path must check this and report. */
+ int cdrom_has_disc(void);
++/* Sectors in the mounted image (iso_sector_count), 0 without a disc. */
++uint32_t cdrom_disc_sector_count(void);
+ /* Disc license region for GetID ("SCEE"/"SCEA"/"SCEI"); derived from the
+  * mounted disc's boot serial at launch. Defaults to "SCEA" (SCPH1001). */
+ void cdrom_set_disc_scex(const char scex[4]);
+diff --git a/runtime/include/mod_plugins.h b/runtime/include/mod_plugins.h
+index a1e4645e..b473c5fe 100644
+--- a/runtime/include/mod_plugins.h
++++ b/runtime/include/mod_plugins.h
+@@ -80,6 +80,17 @@ uint32_t psx_mod_display_width(void);
+ /* Height companion to psx_mod_display_width(); same conventions. */
+ uint32_t psx_mod_display_height(void);
+ 
++/*
++ * Number of sectors in the mounted disc image, 0 without a disc.
++ *
++ * Why this exists: a plugin whose feature needs data added to the disc (for
++ * example a rebuilt image with extra files appended) must know whether that
++ * image is the one mounted, and guest RAM cannot tell it reliably -- a save
++ * state restores RAM from whatever disc it was made on, before the game has
++ * read anything from the current one.
++ */
++uint32_t psx_mod_disc_sector_count(void);
++
+ /*
+  * Read the committed value of one of this package's declared options, as the
+  * player left it in the launcher (or the manifest default when untouched).
+diff --git a/runtime/src/cdrom.c b/runtime/src/cdrom.c
+index 3046d9ef..79967d25 100644
+--- a/runtime/src/cdrom.c
++++ b/runtime/src/cdrom.c
+@@ -1752,6 +1752,11 @@ static int cdda_track_for_lba(uint32_t lba) {
+     return found;
+ }
+ 
++/* Sectors in the mounted image (0 without a disc). */
++uint32_t cdrom_disc_sector_count(void) {
++    return iso_handle ? iso_sector_count(iso_handle) : 0;
++}
++
+ static uint32_t cdda_track_end_lba(int track) {
+     int count = iso_handle ? iso_track_count(iso_handle) : 0;
+     if (track > 0 && track < count)
+diff --git a/runtime/src/mod_runtime.cpp b/runtime/src/mod_runtime.cpp
+index 3f8b5765..f72b12de 100644
+--- a/runtime/src/mod_runtime.cpp
++++ b/runtime/src/mod_runtime.cpp
+@@ -1420,6 +1420,12 @@ extern "C" uint32_t psx_mod_display_width(void) {
+     return info.width;
+ }
+ 
++extern "C" uint32_t cdrom_disc_sector_count(void);
++
++extern "C" uint32_t psx_mod_disc_sector_count(void) {
++    return cdrom_disc_sector_count();
++}
++
+ extern "C" uint32_t psx_mod_display_height(void) {
+     GpuDisplayInfo info;
+     std::memset(&info, 0, sizeof(info));

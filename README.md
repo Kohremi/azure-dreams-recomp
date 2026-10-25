@@ -1,135 +1,111 @@
-<p align="center"><a href="https://alexbeavs-ps1-ports.github.io/psxrecomp-ports/"><img src="https://raw.githubusercontent.com/alexbeavs-ps1-ports/psxrecomp-ports/main/docs/assets/alexbeav-ps1-recomps-banner.png" alt="Alexbeav's PS1 Recomps" width="100%"></a></p>
+# Azure Dreams Recompiled (with mods)
 
-# Azure Dreams
+**Azure Dreams** (PlayStation, 1998) running natively on PC, with gameplay mods, tower tuning, a
+story journal and the Japanese release's voice acting. It is built on
+[azure-dreams-recomp](https://github.com/alexbeavs-ps1-ports/azure-dreams-recomp), a static
+recompilation of the game, and keeps that project's history. The reverse-engineering notes and tools
+the mods were made with are included.
 
-<!-- retcomm-readme-metrics -->
-[![GitHub downloads (all assets, all releases)](https://img.shields.io/github/downloads/Alexbeav/azure-dreams-recomp/total)](https://github.com/Alexbeav/azure-dreams-recomp/releases)
-[![GitHub downloads (latest release)](https://img.shields.io/github/downloads/Alexbeav/azure-dreams-recomp/latest/total)](https://github.com/Alexbeav/azure-dreams-recomp/releases/latest)
-[![GitHub release](https://img.shields.io/github/v/release/Alexbeav/azure-dreams-recomp)](https://github.com/Alexbeav/azure-dreams-recomp/releases/latest)
-<!-- /retcomm-readme-metrics -->
+> [!IMPORTANT]
+> **You must own the game and provide your own copy.** This repository contains no game disc,
+> BIOS, game code, graphics, audio or script text. Everything the game and the mods need from it is
+> generated on your computer from discs you dumped yourself. Do not ask for, share or link game
+> files in issues or pull requests.
 
-Static recompilation of **Azure Dreams** built on
-[psxrecomp](https://github.com/mstan/psxrecomp) and
-[recomp-ui](https://github.com/RetroPortingToolKit/recomp-ui).
+## What you need
 
-This is an owned-input setup kit. You supply your own SLUS-00614 disc image
-and your own SCPH-1001 (USA) BIOS dump; first-run setup generates and compiles the game on
-your machine. The kit and its release archives contain no game disc, retail BIOS,
-generated game code, or saved game.
+| | Required? |
+|---|---|
+| **Azure Dreams (USA)** disc image, SLUS-00614 (BIN/CUE, the standard Redump dump) | **Yes** |
+| **SCPH-1001** PlayStation BIOS, dumped from your own console | **Yes** |
+| **Other Life: Azure Dreams (Japan)** disc image, SLPM-86047 | **Only for the Japanese Voices mod**. Every other mod works without it. |
+| Windows 10/11, [Git](https://git-scm.com/), [Python 3.11+](https://www.python.org/) | Yes. The build tools download themselves. |
+
+You do not need both discs unless you want the Japanese voices.
+
+## Install (short version)
+
+```
+git clone --recursive https://github.com/Kohremi/azure-dreams-recomp.git
+cd azure-dreams-recomp
+```
+Copy your files to `disc\Azure Dreams (USA).bin` + `.cue`, `bios\SCPH1001.BIN` and, optionally,
+`disc\Azure Dreams (Japan).bin`. Then:
+```
+python re\scripts\prepare.py
+python psxrecomp\psxrecomp_cli.py generate --config game.toml --project-root . --disc "disc\Azure Dreams (USA).cue" --bios bios\SCPH1001.BIN
+python psxrecomp\psxrecomp_cli.py rebuild --config game.toml --project-root . --build-dir build-release --target psx-runtime --exe-basename Azure_Dreams --no-pgo
+```
+Run `build-release\Azure_Dreams.exe`, pick your disc (the `(JP Voices).cue` for voices), switch on
+mods under **Mods**, and press **PLAY**.
+
+**Step-by-step guide, dumping and CHD conversion, updating and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md).**
+
+## The mods
+
+All are off until you switch them on in the launcher. Every option is listed in
+**[docs/MODS.md](docs/MODS.md)**.
+
+- **Gameplay:** Second Wind (HP regeneration in the tower), EXP Rate, Familiar Growth, Spell Growth,
+  Spell MP Cost, Talent Inheritance (fusions keep all talents), Fusion Absorption, Monster Strength,
+  Melee Damage, Spell Damage, Critical Strikes, Elemental Affinity, Fair Level Down (fixes the level
+  down underflow and the frog dodge).
+- **Monster Tower:** monster density, item rarity, items and traps per floor, room grid, frequency
+  and size, open floors, floor elevation, Deeper Encounters, and fixes for three original bugs
+  (Strength Increased familiars, Gaia Shoot's element, Barong item rarity).
+- **Story Journal:** talk to Weedy in Koh's house and pick *[Show me your story journal.]*. Each
+  girl's story beats are listed, marked `+` passed, `>` next, `-` later. Pick the next beat or an
+  ending and the town plays it out when you step outside. It changes your save, so use it knowingly.
+- **Japanese Voices:** the Japanese voice acting in town and in the voiced tower scenes, on the
+  matching English lines (2114 of the 2124 voiced lines). Needs the Japanese disc. Scenes Japan never
+  voiced (for example Wreath's "selling items" talk after a tower run) stay silent.
+
+## Documentation
 
 | | |
 |---|---|
-| Region | USA |
-| Disc serial | SLUS-00614 |
-| Discs | 1 |
-| Supported dump | Redump `Azure Dreams (USA).cue` as CUE/BIN or CHD |
-| BIOS | SCPH-1001 (USA), 524288 bytes, SHA-256 `71af94d1e47a68c11e8fdb9f8368040601514a42a5a399cda48c7d3bff1e99d3` |
+| [docs/INSTALL.md](docs/INSTALL.md) | installing, updating, troubleshooting |
+| [docs/MODS.md](docs/MODS.md) | every mod and option (generated from the manifests) |
+| [docs/TOOLS.md](docs/TOOLS.md) | every script in `re/scripts`: setup, generators, analysis, test harness |
+| [re/MODDING.md](re/MODDING.md) | how the mods work, how to change them and write new ones, testing |
+| [re/NOTES.md](re/NOTES.md) | what is known about the game's internals: units, combat, AI, magic, floors, town events, voices, sprites, input |
 
-## Setup
+## Repository layout
 
-1. Download the setup ZIP for your platform from [Releases](https://github.com/Alexbeav/azure-dreams-recomp/releases)
-   and extract it into a writable folder.
-2. Start `Azure_Dreams` (`.exe` on Windows).
-3. In the setup wizard select your disc image (the Redump CUE, or a CHD of the
-   same dump) and your BIOS file.
-4. Run Generate & rebuild and wait for the game to start. The first run compiles
-   the game and takes several minutes.
+| Path | What |
+|---|---|
+| `mods_src/` | the mods' C plugins, compiled into the game |
+| `mods/preloaded/packages/` | the mods' manifests: features, options, declarative patches |
+| `patches/psxrecomp/` | a small addition to the framework's mod API (`psx_mod_disc_sector_count()`), applied automatically when CMake configures |
+| `re/scripts/`, `re/ghidra/scripts/` | setup, generators, research and test tools |
+| `re/events/journal.toml`, `re/events/voice_overrides.toml` | hand-written inputs for the Story Journal and the voice placement |
+| `docs/` | user documentation |
+| everything else | the upstream recompilation kit |
 
-On Windows the wizard downloads the portable build tools (cmake-clang-v1) or uses
-cmake/ninja already on PATH. On Linux and macOS install CMake, Ninja, Python 3,
-and a C/C++ compiler first. Keep a CUE and every file it references together.
-Setup produces both a normal and a diagnostic build; see *Diagnostic mode* below.
-
-<!-- retcomm-readme-launcher -->
-## Retro Launcher
-
-You can run this title **standalone** (release zip + the built-in recomp-ui
-Generate & Build flow), or manage installs, updates, ROM/BIOS wiring, and queued
-builds more intuitively with
-**[Retro Launcher](https://github.com/RetroPortingToolKit/Retro-Launcher)** —
-the Retro Compilation Manager hub for self-compiling recomps.
-
-[Downloads](https://github.com/RetroPortingToolKit/Retro-Launcher/releases) ·
-[Full README & features](https://github.com/RetroPortingToolKit/Retro-Launcher#readme)
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/RetroPortingToolKit/Retro-Launcher/main/docs/screenshots/hub-and-game-launcher.png" alt="Retro hub with a background build, next to a title’s recomp-ui launcher" width="720">
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/RetroPortingToolKit/Retro-Launcher/main/docs/screenshots/queue-and-background-build.png" alt="Background cmake build with titles queued" width="720">
-</p>
-
-Retro checks for updates, rebuilds with existing build data when possible,
-shares the portable toolchain used by per-title launchers, and automates
-BIOS/ROM/save plumbing so you are not stuck repeating each game’s wizard by hand.
-<!-- /retcomm-readme-launcher -->
-
-## Status
-
-Version 0.1.0 release candidate.
-
-- Windows: the exact setup package passed automated clean-extract setup,
-  generation, compilation, and a headless start check on the pinned framework.
-- Windows play testing on the private build this kit derives from: the first build showed a black window at start. The CD-ROM seek-completion correction is in the pinned framework and was accepted on a test candidate.
-- Linux and macOS: packages are built by CI from the same recipe; native setup
-  and gameplay have not been verified.
-
-Full-game completion, audio fidelity, and multiplayer are not claimed. Runtime
-snapshots from older builds are not qualified compatible; ordinary memory-card
-saves are preserved across updates.
-
-## Known issues
-
-- None recorded beyond the Status scope above.
-
-## Diagnostic mode
-
-If the game crashes, freezes, or misbehaves, switch to the diagnostic build
-that first-run setup already produced (no recompiling): create an empty file
-named `diagnostic-mode.txt` next to `Azure_Dreams.exe` and start the game as
-usual, or run `Azure_Dreams.exe --diagnostic`. Reproduce the problem, quit, then
-run `Azure_Dreams.exe --collect-diagnostics`: it writes `diagnostics-<date>.zip`
-next to the exe. Attach that zip to a GitHub issue on this repository with a
-short description of what you did. The zip holds only the runtime's report
-files, never saves, BIOS, or disc images. Delete `diagnostic-mode.txt` to go
-back to normal mode. Details: `psxrecomp/docs/DIAGNOSTIC_MODE.md`.
+Generated from your discs and ignored by git: `disc/`, `bios/`, `extracted/`, `extracted_jp/`,
+`generated/`, `mods_src/azure_*_data.h`, the rest of `re/events/`, `saves/`, `build-*`.
 
 ## Legal
 
-You must own the original game. Disc images under `disc/` are gitignored and
-must never be committed. Retail BIOS dumps are not redistributed and OpenBIOS is
-not shipped: this title is retail-BIOS-only, so first-run Generate needs your own
-legally dumped SCPH-1001 image.
-
-Default app icon: `assets/psxrecomp.ico` (and `.png` / `.svg`) — Retro-themed controller mark from `psxrecomp/assets/`. Windows builds embed it via `APP_ICON`.
-
-Box art is not shipped in this kit or its repository. Redistribution permission for third-party cover images is unresolved, so the launcher runs without one.
-
-## About this project
-
-This project was developed with AI assistance. AI assists with code,
-documentation, and investigation; Alex tests the game and makes release
-decisions. Validation claims describe only the tests actually performed.
+- Azure Dreams is © Konami. This is an unofficial fan project, not affiliated with or endorsed by
+  Konami. It is meant for people who own the game.
+- Use it only with discs and a BIOS you dumped yourself from hardware you own.
+- No copyrighted game content is distributed. The mod patches contain the new values plus the few
+  original bytes needed to check where they apply, as any patch does. A few code comments quote a
+  single line of dialogue to identify where a voice belongs.
 
 ## Credits and licenses
 
-Framework: [psxrecomp](https://github.com/mstan/psxrecomp), built from the
-pinned fork commit named by the `psxrecomp` submodule. Launcher:
-[recomp-ui](https://github.com/RetroPortingToolKit/recomp-ui), pinned by the
-`recomp-ui` submodule. This kit's own files are under [LICENSE](LICENSE); third-party
-notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), and the framework
-and launcher licenses remain in their source directories. The original game and its
-trademarks belong to their respective owners.
-
-<!-- retcomm-readme-raid -->
----
-
-<p align="center">
-  <sub><b>R.A.I.D. — Retro AI Development</b> · a Discord for AI-assisted retro reverse-engineering, decomp &amp; recomp</sub>
-</p>
-
-<p align="center">
-  <a href="https://discord.gg/Ad9BwSzctP"><img src=".github/raid-discord.png" alt="Join the Retro AI Development (R.A.I.D.) Discord" width="200"></a>
-</p>
-<!-- /retcomm-readme-raid -->
+- **Mods, tools and notes:** Kohremi. GPL-3.0-only, like the kit they build on ([LICENSE](LICENSE)).
+- **Recompilation kit:** [azure-dreams-recomp](https://github.com/alexbeavs-ps1-ports/azure-dreams-recomp)
+  by Alexbeav, GPL-3.0-only.
+- **Framework:** [psxrecomp](https://github.com/mstan/psxrecomp) (fork pinned by the `psxrecomp`
+  submodule), PolyForm Noncommercial 1.0.0. `patches/psxrecomp/` modifies it under that license:
+  noncommercial use only.
+- **Launcher:** [recomp-ui](https://github.com/RetroPortingToolKit/recomp-ui), MIT.
+- Third-party notices: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+- Earlier community work this drew on: the decompilation project
+  [forestbelton/azure](https://github.com/forestbelton/azure) and the
+  [Azure Dreams encyclopedia at adrando.com](https://adrando.com/guide).
+- Developed with AI assistance (Claude). The mods were tested in game; the results are recorded in
+  `re/NOTES.md`.

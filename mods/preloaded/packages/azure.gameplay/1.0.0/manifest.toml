@@ -1,0 +1,375 @@
+format_version = 6
+id = "azure.gameplay"
+version = "1.0.0"
+name = "Azure Dreams Gameplay Mods"
+author = "Kohremi"
+description = "New mechanics for Azure Dreams familiars, fusion and combat, implemented as native plugins."
+license = "GPL-3.0"
+resolver = "declarative"
+
+[[target]]
+game_id = "SLUS-00614"
+
+# ---------------------------------------------------------------- Koh -------
+
+[[feature]]
+id = "second-wind"
+name = "Second Wind"
+description = "Koh slowly regenerates HP over time while inside the Monster Tower. Never revives and never heals past max HP."
+group = "Koh"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "second-wind"
+id = "frames_per_hp"
+label = "Frames per HP"
+description = "How many frames (60 per second) it takes to regenerate 1 HP."
+type = "integer"
+min = 10
+max = 3600
+step = 10
+default = 120
+
+[[plugin]]
+feature = "second-wind"
+id = "azure.second-wind"
+
+# ----------------------------------------------------------- Leveling ------
+
+[[feature]]
+id = "exp-rate"
+name = "EXP Rate"
+description = "Scales the EXP Koh and his familiars earn from defeating monsters."
+group = "Familiars"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "exp-rate"
+id = "percent"
+label = "EXP earned (%)"
+type = "integer"
+min = 10
+max = 1000
+step = 10
+default = 200
+
+[[plugin]]
+feature = "exp-rate"
+id = "azure.exp-rate"
+
+[[feature]]
+id = "familiar-growth"
+name = "Familiar Growth"
+description = "Multiplies the ATK, DEF, HP and MP a familiar gains each time it levels up."
+group = "Familiars"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "familiar-growth"
+id = "percent"
+label = "Stat gain per level (%)"
+type = "integer"
+min = 100
+max = 500
+step = 10
+default = 150
+
+[[plugin]]
+feature = "familiar-growth"
+id = "azure.familiar-growth"
+
+# ------------------------------------------------------------- Fusion ------
+
+[[feature]]
+id = "talent-inheritance"
+name = "Talent Inheritance"
+description = "Fused familiars keep every talent from both parents (Quick, Hard, immunities ...) instead of only their species' innate ones, so talents can be stacked over several fusions."
+group = "Fusion"
+default_enabled = false
+channel = "experimental"
+
+[[plugin]]
+feature = "talent-inheritance"
+id = "azure.talent-inheritance"
+
+[[feature]]
+id = "fusion-absorb"
+name = "Fusion Absorption"
+description = "The surviving familiar absorbs part of the other familiar's base ATK, DEF, HP and MP."
+group = "Fusion"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "fusion-absorb"
+id = "percent"
+label = "Stats absorbed (%)"
+type = "integer"
+min = 5
+max = 100
+step = 5
+default = 25
+
+[[plugin]]
+feature = "fusion-absorb"
+id = "azure.fusion-absorb"
+
+# ------------------------------------------------------------- Combat ------
+
+[[feature]]
+id = "monster-strength"
+name = "Monster Strength"
+description = "Scales the HP, ATK and DEF of wild monsters in the tower when they appear."
+group = "Combat"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "monster-strength"
+id = "hp_percent"
+label = "Monster HP (%)"
+type = "integer"
+min = 25
+max = 400
+step = 5
+default = 150
+
+[[option]]
+feature = "monster-strength"
+id = "atk_percent"
+label = "Monster ATK (%)"
+type = "integer"
+min = 25
+max = 400
+step = 5
+default = 120
+
+[[option]]
+feature = "monster-strength"
+id = "def_percent"
+label = "Monster DEF (%)"
+type = "integer"
+min = 25
+max = 400
+step = 5
+default = 120
+
+[[plugin]]
+feature = "monster-strength"
+id = "azure.monster-strength"
+
+[[feature]]
+id = "melee-damage"
+name = "Melee Damage"
+description = "Scales melee damage separately for attacks made by Koh and his familiars and attacks made by monsters. Every hit still deals at least 1 damage."
+group = "Combat"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "melee-damage"
+id = "party_percent"
+label = "Damage dealt by your party (%)"
+type = "integer"
+min = 10
+max = 500
+step = 5
+default = 125
+
+[[option]]
+feature = "melee-damage"
+id = "enemy_percent"
+label = "Damage dealt by monsters (%)"
+type = "integer"
+min = 10
+max = 500
+step = 5
+default = 100
+
+[[plugin]]
+feature = "melee-damage"
+id = "azure.melee-damage"
+
+[[feature]]
+id = "critical-strikes"
+name = "Critical Strikes"
+description = "New mechanic: melee hits by Koh and his familiars have a chance to land a critical strike for extra damage."
+group = "Combat"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "critical-strikes"
+id = "chance"
+label = "Critical chance (%)"
+type = "integer"
+min = 1
+max = 100
+step = 1
+default = 10
+
+[[option]]
+feature = "critical-strikes"
+id = "damage_percent"
+label = "Critical damage (%)"
+type = "integer"
+min = 110
+max = 500
+step = 10
+default = 200
+
+[[plugin]]
+feature = "critical-strikes"
+id = "azure.critical-strikes"
+
+# ------------------------------------------------------------- Magic -------
+
+[[feature]]
+id = "spell-damage"
+name = "Spell Damage"
+description = "Scales damage from attack spells (Breath, Sled, Brid, Rise, Grave ...) separately for spells cast by your party and by monsters (and traps). Every hit still deals at least 1 damage."
+group = "Magic"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "spell-damage"
+id = "party_percent"
+label = "Spell damage dealt by your party (%)"
+type = "integer"
+min = 10
+max = 500
+step = 5
+default = 125
+
+[[option]]
+feature = "spell-damage"
+id = "enemy_percent"
+label = "Spell damage dealt by monsters and traps (%)"
+type = "integer"
+min = 10
+max = 500
+step = 5
+default = 100
+
+[[plugin]]
+feature = "spell-damage"
+id = "azure.spell-damage"
+
+[[feature]]
+id = "elemental-affinity"
+name = "Elemental Affinity"
+description = "New mechanic: a familiar casting an attack spell of its own element (a fire familiar casting Brid, a water familiar casting NeaBrid ...) deals bonus damage. Fusion picks the element, so this rewards planning fusions."
+group = "Magic"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "elemental-affinity"
+id = "bonus_percent"
+label = "Bonus damage (%)"
+type = "integer"
+min = 5
+max = 200
+step = 5
+default = 50
+
+[[option]]
+feature = "elemental-affinity"
+id = "monsters"
+label = "Monsters get the bonus too"
+type = "boolean"
+default = "false"
+
+[[plugin]]
+feature = "elemental-affinity"
+id = "azure.elemental-affinity"
+
+[[feature]]
+id = "spell-growth"
+name = "Spell Growth"
+description = "When a familiar levels up, the spells that grow gain extra spell levels. Spell level adds directly to spell power."
+group = "Magic"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "spell-growth"
+id = "percent"
+label = "Spell level gain per level-up (%)"
+type = "integer"
+min = 100
+max = 500
+step = 10
+default = 200
+
+[[plugin]]
+feature = "spell-growth"
+id = "azure.spell-growth"
+
+[[feature]]
+id = "spell-mp-cost"
+name = "Spell MP Cost"
+description = "Scales the MP every spell costs, for both normal casts and weapon enchants."
+group = "Magic"
+default_enabled = false
+channel = "experimental"
+
+[[option]]
+feature = "spell-mp-cost"
+id = "percent"
+label = "MP cost (%)"
+type = "integer"
+min = 10
+max = 300
+step = 10
+default = 50
+
+[[plugin]]
+feature = "spell-mp-cost"
+id = "azure.spell-mp-cost"
+
+# ------------------------------------------------------------- Town -------
+
+[[feature]]
+id = "story-journal"
+name = "Story Journal"
+description = "Talk to Weedy in Koh's house: her Monster Book question gets a third answer, [Show me your story journal.], which opens a journal of each girl's town story. It shows where each story stands and lets you pick the next event or an ending; the town plays it out once you step outside. Edit re/events/journal.toml and run re/scripts/make_journal.py to change or add entries."
+group = "Town"
+default_enabled = false
+channel = "experimental"
+
+[[plugin]]
+feature = "story-journal"
+id = "azure.story-journal"
+
+# ------------------------------------------------- Gameplay Corrections ---
+
+[[feature]]
+id = "fair-level-down"
+name = "Fair Level Down"
+description = "LoDown and level-down traps take back only what a level actually gave. Frogged monsters can no longer dodge the loss (their real species is used, not the frog's), and evolved monsters such as a Battnel raised from a Nyuel can no longer have stats wrap around to 255: no stat drops below the species' level-1 value."
+group = "Gameplay Corrections"
+default_enabled = false
+channel = "experimental"
+
+[[plugin]]
+feature = "fair-level-down"
+id = "azure.fair-level-down"
+
+# ------------------------------------------------------------------ Audio --
+
+[[feature]]
+id = "jp-voices"
+name = "Japanese Voices"
+description = "Plays the Japanese release's voice acting in town conversations and the voiced tower scenes (townspeople you meet in the tower, Beldo). Needs the voice disc image made by re/scripts/build_voice_disc.py from your US and Japanese discs (it adds the Japanese voice files to the US disc); with the plain US disc this does nothing."
+group = "Audio"
+default_enabled = false
+channel = "experimental"
+
+[[plugin]]
+feature = "jp-voices"
+id = "azure.jp-voices"

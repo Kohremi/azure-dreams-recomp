@@ -34,6 +34,9 @@ bios_config = "psxrecomp/bios/SCPH1001.toml"
 seeds = "seeds/ghidra_funcs.txt"
 out_dir = "generated"
 strict = true
+# Trusted mod hooks (mods_src/azure_gameplay.c): EXE status lookup called right
+# after the dungeon melee routine stores damage.
+mod_function_entry_funcs = ["0x80042900"]
 
 [runtime]
 window_title = "Azure Dreams Recompiled"

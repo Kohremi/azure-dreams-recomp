@@ -11,7 +11,9 @@ public static class W {
 "@
 [W]::SetProcessDPIAware() | Out-Null
 New-Item -ItemType Directory -Force (Split-Path $OutPrefix) | Out-Null
-$p = Start-Process -FilePath $Exe -ArgumentList $ExeArgs -WorkingDirectory (Split-Path $Exe) -PassThru
+$start = @{ FilePath = $Exe; WorkingDirectory = (Split-Path $Exe); PassThru = $true }
+if ($ExeArgs) { $start.ArgumentList = $ExeArgs }
+$p = Start-Process @start
 $t0 = Get-Date
 foreach ($s in $ShotsAt) {
   while (((Get-Date) - $t0).TotalSeconds -lt $s) { Start-Sleep -Milliseconds 250 }

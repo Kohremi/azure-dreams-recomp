@@ -48,9 +48,12 @@ You do **not** need both discs. The Japanese disc is optional and only adds the 
 
 ## 3. Download the project
 
-Open **Command Prompt** or **PowerShell** in the folder where you want it, then:
+Open **Command Prompt** or **PowerShell** in a folder with a short path, such as `C:\Games`. The
+framework has deeply nested files, and Windows refuses paths over 260 characters unless long paths
+are enabled. Then:
 
 ```
+git config --global core.longpaths true
 git clone --recursive https://github.com/Kohremi/azure-dreams-recomp.git
 cd azure-dreams-recomp
 ```
@@ -109,7 +112,9 @@ compiles it (several minutes the first time). A CMake warning saying
 Run `build-release\Azure_Dreams.exe`. The launcher opens:
 
 1. **Browse For Disc / SBI**: pick `disc\Azure Dreams (USA) (JP Voices).cue` if you made it, otherwise
-   `disc\Azure Dreams (USA).cue`. The disc panel should say *Disc verified*.
+   `disc\Azure Dreams (USA).cue`. (After step 6 the launcher may already show `disc.cue`, a copy of
+   your US disc that `generate` made; with it the panel says *Disc verified*. Choose the
+   `(JP Voices).cue` instead when you want the voices.)
 2. **Mods** (top right): switch on the mods you want and set their options. Everything starts off.
    [MODS.md](MODS.md) explains each one.
 3. **Controls**: Player 1 uses the keyboard by default; pick your controller in the Player 1 box
@@ -134,6 +139,7 @@ Your memory cards in `saves\` are kept.
 
 | Problem | Fix |
 |---|---|
+| `git clone`: *Filename too long* / *Unable to checkout ... in submodule path 'psxrecomp'* | Run `git config --global core.longpaths true`, delete the half-cloned folder and clone again, preferably into a short path such as `C:\Games`. |
 | `prepare.py`: *SHA-1 ... is not the Redump dump the mods were made for* | Your US image is a different dump, region or revision. Make a fresh dump of the US release, or convert from a verified CHD. `--force` continues anyway, but mods may break. |
 | `prepare.py`: *Put your own dump of Azure Dreams (USA) in disc/* | The file is missing or named differently. See step 4. |
 | CMake: *no retcomm-rbengine snap-ring backend was found* | The submodules are incomplete: `git submodule update --init --recursive`. |

@@ -25,7 +25,9 @@ You do not need both discs unless you want the Japanese voices.
 
 ## Install (short version)
 
+In a folder with a short path (for example `C:\Games`):
 ```
+git config --global core.longpaths true
 git clone --recursive https://github.com/Kohremi/azure-dreams-recomp.git
 cd azure-dreams-recomp
 ```

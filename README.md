@@ -14,7 +14,7 @@ the mods were made with are included.
 
 ## What you need
 
-| | Required? |
+| What | Required? |
 |---|---|
 | **Azure Dreams (USA)** disc image, SLUS-00614 (BIN/CUE, the standard Redump dump) | **Yes** |
 | **SCPH-1001** PlayStation BIOS, dumped from your own console | **Yes** |
@@ -101,8 +101,10 @@ Generated from your discs and ignored by git: `disc/`, `bios/`, `extracted/`, `e
 - **Mods, tools and notes:** Kohremi. GPL-3.0-only, like the kit they build on ([LICENSE](LICENSE)).
 - **Recompilation kit:** [azure-dreams-recomp](https://github.com/alexbeavs-ps1-ports/azure-dreams-recomp)
   by Alexbeav, GPL-3.0-only.
-- **Framework:** [psxrecomp](https://github.com/mstan/psxrecomp) (fork pinned by the `psxrecomp`
-  submodule), PolyForm Noncommercial 1.0.0. `patches/psxrecomp/` modifies it under that license:
+- **Framework:** psxrecomp, pinned by the `psxrecomp` submodule to
+  [Alexbeav/psxrecomp](https://github.com/Alexbeav/psxrecomp) (a fork of
+  [RetroPortingToolKit/psxrecomp](https://github.com/RetroPortingToolKit/psxrecomp)), PolyForm
+  Noncommercial 1.0.0. `patches/psxrecomp/` modifies it under that license:
   noncommercial use only.
 - **Launcher:** [recomp-ui](https://github.com/RetroPortingToolKit/recomp-ui), MIT.
 - Third-party notices: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -64,8 +64,8 @@ submodules, and they have submodules of their own. If you forgot it, run
 
 ## 4. Put your files in place
 
-Create the `disc` and `bios` folders inside `azure-dreams-recomp` and copy your files in with exactly
-these names:
+The project comes with a `disc` and a `bios` folder, each with a `README.txt` that says what goes
+there. Copy your files in with exactly these names:
 
 ```
 azure-dreams-recomp\
@@ -75,7 +75,8 @@ azure-dreams-recomp\
   bios\SCPH1001.BIN
 ```
 
-These folders are ignored by git, so your files can never be uploaded by accident. If your `.cue`
+Everything in these folders except the two `README.txt` files is ignored by git, so your files can
+never be uploaded by accident. If your `.cue`
 names the `.bin` differently, open it in Notepad and fix the `FILE "..."` line. The Japanese image may
 also be called `Other Life - Azure Dreams (Japan).bin`, or you can pass any path with
 `--jp "path\to\file.bin"` in the next step.

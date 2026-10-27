@@ -15,12 +15,15 @@
 /dist/
 *.zip
 
-# Local PlayStation assets (never commit dumps / BIOS)
-/bios/
+# Local PlayStation assets (never commit dumps / BIOS). disc/ and bios/ are
+# kept in the repository only for the README.txt that says what goes there.
+/bios/*
+!/bios/README.txt
 /isos/
 /saves/
 /prepared_disc/
-/disc/
+/disc/*
+!/disc/README.txt
 .settings/
 
 # Disc / image / memcard formats

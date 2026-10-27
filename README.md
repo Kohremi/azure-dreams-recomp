@@ -31,7 +31,8 @@ git config --global core.longpaths true
 git clone --recursive https://github.com/Kohremi/azure-dreams-recomp.git
 cd azure-dreams-recomp
 ```
-Copy your files to `disc\Azure Dreams (USA).bin` + `.cue`, `bios\SCPH1001.BIN` and, optionally,
+Copy your files into the `disc` and `bios` folders (their `README.txt` lists the exact names):
+`disc\Azure Dreams (USA).bin` + `.cue`, `bios\SCPH1001.BIN` and, optionally,
 `disc\Azure Dreams (Japan).bin`. Then:
 ```
 python re\scripts\prepare.py
@@ -84,8 +85,9 @@ All are off until you switch them on in the launcher. Every option is listed in
 | `docs/` | user documentation |
 | everything else | the upstream recompilation kit |
 
-Generated from your discs and ignored by git: `disc/`, `bios/`, `extracted/`, `extracted_jp/`,
-`generated/`, `mods_src/azure_*_data.h`, the rest of `re/events/`, `saves/`, `build-*`.
+Your files and everything generated from them are ignored by git: the contents of `disc/` and
+`bios/` (except their `README.txt`), `extracted/`, `extracted_jp/`, `generated/`,
+`mods_src/azure_*_data.h`, the rest of `re/events/`, `saves/`, `build-*`.
 
 ## Legal
 
